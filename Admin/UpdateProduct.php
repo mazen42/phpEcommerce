@@ -1,8 +1,6 @@
 <?php
-session_start();
-include __DIR__ . "../../Data/dbConnection.php";
-include __DIR__ . "../../Functions/phpNoReturn.php";
-
+$pageTitle = "Update Product";
+include "../Views/Header.php";
 if (isset($_GET["id"])) {
 	$id = $_GET["id"];
 	$sql = "SELECT ID AS ProductId, NAME AS productName , AUTHOR AS author, DESCRIPTION AS description,
@@ -53,104 +51,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	exit();
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-	<title>Update Product</title>
-</head>
-
-<body>
-	<?php
-	include "../Views/NavBar.php";
-	?>
-	<div class="container mt-5">
-		<div class="row">
-			<!-- Product Image Upload -->
-			<div class="col-md-6 mb-4">
-				<input type="file" form="myForm" id="Image" name="image" class="form-control mb-2"
-					onchange="previewFile(event)">
-				<img src="<?= "http://localhost:8080/NewEcommerce/uploads/" . $row["IMAGEURL"] ?>" alt="Preview"
-					class="img-fluid rounded mb-3" id="previewImage">
-			</div>
-			<!-- Product Details Form -->
-			<div class="col-md-6">
-				<h2 class="mb-3">Update Product</h2>
-				<form method="POST" enctype="multipart/form-data" id="myForm">
-					<input type="number" name="ProductId" value="<?= $row["ProductId"] ?>" hidden>
-					<div class="mb-3">
-						<label class="form-label">Product Title</label>
-						<input type="text" id="namedetails" name="name" value="<?php echo $row["productName"]; ?>"
-							class="form-control" placeholder="Enter product name">
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Author</label>
-						<input type="text" id="Authordetails" name="author" value="<?php echo $row["author"]; ?>"
-							class="form-control" placeholder="Enter product name">
-					</div>
-					<div class="mb-3">
-						<label class="form-label">List Price</label>
-						<input type="number" id="listPricedetails" name="listprice"
-							value="<?php echo $row["LISTPRICE"]; ?>" class="form-control" placeholder="$0.00">
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Price</label>
-						<input type="number" id="pricedetails" name="price" value="<?php echo $row["PRICE"]; ?>"
-							class="form-control" placeholder="$0.00">
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Price50</label>
-						<input type="number" id="price50details" name="price50" value="<?php echo $row["PRICE50"]; ?>"
-							class="form-control" placeholder="$0.00">
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Price100</label>
-						<input type="number" id="price100details" name="price100" value="<?= $row["PRICE100"] ?>"
-							class="form-control" placeholder="$0.00">
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Category</label>
-						<select class="form-select" name="category" id="categoryDetails"
-							aria-label="Default select example">
-							<?php
-							while ($Categories_rows = mysqli_fetch_assoc($categorySql_run)) {
-								$id = $Categories_rows["ID"];
-								$name = $Categories_rows["NAME"];
-								if ($id == $row["CATEGORYID"]) {
-									echo "<option value = '$id' selected>$name</option>";
-								} else {
-									echo "<option value = '$id'>$name</option>";
-								}
-
-
+<div class="container mt-5">
+	<div class="row">
+		<!-- Product Image Upload -->
+		<div class="col-md-6 mb-4">
+			<input type="file" form="myForm" id="Image" name="image" class="form-control mb-2"
+				onchange="previewFile(event)">
+			<img src="<?= "http://localhost:8080/NewEcommerce/uploads/" . $row["IMAGEURL"] ?>" alt="Preview"
+				class="img-fluid rounded mb-3" id="previewImage">
+		</div>
+		<!-- Product Details Form -->
+		<div class="col-md-6">
+			<h2 class="mb-3">Update Product</h2>
+			<form method="POST" enctype="multipart/form-data" id="myForm">
+				<input type="number" name="ProductId" value="<?= $row["ProductId"] ?>" hidden>
+				<div class="mb-3">
+					<label class="form-label">Product Title</label>
+					<input type="text" id="namedetails" name="name" value="<?php echo $row["productName"]; ?>"
+						class="form-control" placeholder="Enter product name">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Author</label>
+					<input type="text" id="Authordetails" name="author" value="<?php echo $row["author"]; ?>"
+						class="form-control" placeholder="Enter product name">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">List Price</label>
+					<input type="number" id="listPricedetails" name="listprice" value="<?php echo $row["LISTPRICE"]; ?>"
+						class="form-control" placeholder="$0.00">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Price</label>
+					<input type="number" id="pricedetails" name="price" value="<?php echo $row["PRICE"]; ?>"
+						class="form-control" placeholder="$0.00">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Price50</label>
+					<input type="number" id="price50details" name="price50" value="<?php echo $row["PRICE50"]; ?>"
+						class="form-control" placeholder="$0.00">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Price100</label>
+					<input type="number" id="price100details" name="price100" value="<?= $row["PRICE100"] ?>"
+						class="form-control" placeholder="$0.00">
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Category</label>
+					<select class="form-select" name="category" id="categoryDetails"
+						aria-label="Default select example">
+						<?php
+						while ($Categories_rows = mysqli_fetch_assoc($categorySql_run)) {
+							$id = $Categories_rows["ID"];
+							$name = $Categories_rows["NAME"];
+							if ($id == $row["CATEGORYID"]) {
+								echo "<option value = '$id' selected>$name</option>";
+							} else {
+								echo "<option value = '$id'>$name</option>";
 							}
 
-							?>
-						</select>
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Description</label>
-						<textarea class="form-control" id="Descriptiondetails" name="description"
-							rows="3"><?= $row["description"] ?></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary mb-2 w-25">Update</button>
-			</div>
 
+						}
+
+						?>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Description</label>
+					<textarea class="form-control" id="Descriptiondetails" name="description"
+						rows="3"><?= $row["description"] ?></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary mb-2 w-25">Update</button>
 		</div>
-		</form>
-	</div>
-	</div>
-	</div>
 
-	<script>
-		let data = '<?= json_encode($Categories_rows) ?>'
-		console.log(data)
-	</script>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-	<script src="js/updateProduct.js"></script>
-</body>
-
-</html>
+	</div>
+	</form>
+</div>
+</div>
+</div>
+<?php
+include "../Views/footer.php";
+?>
