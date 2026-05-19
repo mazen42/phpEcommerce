@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Login";
-include "../Views/Header.php";
+include "common/Header.php";
 ?>
 <section style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
 	<div class="mask d-flex align-items-center h-100 gradient-custom-3">
@@ -10,7 +10,7 @@ include "../Views/Header.php";
 					<div class="card" style="border-radius: 15px;">
 						<div class="card-body p-5">
 							<h2 class="text-uppercase text-center mb-5">Create an account</h2>
-
+							<div class="col-md-8" id="signup_msg"></div>
 							<form id="registerform">
 
 								<div data-mdb-input-init class="form-outline mb-4">
@@ -79,8 +79,6 @@ include "../Views/Header.php";
 										class="fw-bold text-body"><u>Login here</u></a></p>
 
 							</form>
-							<div class="col-md-8" id="signup_msg"></div>
-
 						</div>
 					</div>
 				</div>
@@ -90,5 +88,5 @@ include "../Views/Header.php";
 
 </section>
 <?php
-include "../Views/footer.php";
+include "common/footer.php";
 ?>

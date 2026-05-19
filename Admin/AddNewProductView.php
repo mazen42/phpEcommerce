@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Add New Product";
-include "../Views/Header.php";
+include "./common/Header.php";
 
 ?>
 
@@ -61,5 +61,5 @@ include "../Views/Header.php";
 </div>
 
 <?php
-include "../Views/footer.php";
+include "./common/footer.php";
 ?>

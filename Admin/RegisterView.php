@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Register";
-include "../Views/Header.php";
+include __DIR__ . "/common/Header.php";
 ?>
 <section class="vh-100" style="background-color: #eee;">
 	<div class="container h-100">
@@ -84,5 +84,5 @@ include "../Views/Header.php";
 		</div>
 	</div>
 	<?php
-	include "../Views/footer.php";
+	include __DIR__ . "/common/footer.php";
 	?>

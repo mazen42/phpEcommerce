@@ -1,6 +1,10 @@
 <?php
 $pageTitle = "Dashboard";
-include "../Views/Header.php";
+include "./common/Header.php";
+if (!isset($_SESSION["adminid"]) && empty($_SESSION["adminid"])) {
+	header("Location: LoginView.php");
+}
+
 
 ?>
 <div style="display:flex; justify-content: center;">
@@ -24,13 +28,13 @@ include "../Views/Header.php";
 	</tbody>
 	<div id="toastee" class="toast-container position-fixed top-0 end-0 p-3"><?php if (isset($_SESSION["notification"])) {
 		echo '<div class="alert alert-success" role="alert">
-  <a href="#" class="alert-link">' . $_SESSION["notification"] . '
-</div>';
+  				<a href="#" class="alert-link">' . $_SESSION["notification"] . '
+			 </div>';
 		unset($_SESSION["notification"]);
 	} ?></div>
 
 </table>
 <?php
-include "../Views/footer.php";
+include "./common/footer.php";
 
 ?>

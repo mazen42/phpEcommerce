@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Login";
-include "../Views/Header.php";
+include __DIR__ . "/common/Header.php";
 ?>
 <section class="h-75 mt-5">
 	<div class="container-fluid h-custom">
@@ -52,5 +52,5 @@ include "../Views/Header.php";
 	</div>
 </section>
 <?php
-include "../Views/footer.php";
+include __DIR__ . "/common/footer.php";
 ?>

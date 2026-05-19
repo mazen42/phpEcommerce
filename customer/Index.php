@@ -1,6 +1,14 @@
 <?php
+// if (!isset($_SESSION["customerid"]) && empty($_SESSION["customerid"])) {
+// 	session_start();
+// 	session_unset();
+
+// 	session_destroy();
+// 	header("Location: Login.php");
+// 	exit;
+// }
 $pageTitle = "Home";
-include "../Views/Header.php";
+include "common/Header.php";
 ?>
 <section style="background-color: #eee;">
 	<div class="container py-5">
@@ -44,5 +52,5 @@ include "../Views/Header.php";
 	</div>
 </section>
 <?php
-include "footer.php";
+include "common/footer.php";
 ?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
-include __DIR__ . "../../Data/dbConnection.php";
-include __DIR__ . "../../Functions/phpNoReturn.php";
+include __DIR__ . "/../../Data/dbConnection.php";
+include __DIR__ . "/../../Functions/phpNoReturn.php";
 if (!isset($pageTitle)) {
 	$pageTitle = "Default";
 }
@@ -26,31 +26,33 @@ if (!isset($pageTitle)) {
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 20px; font-size: 20px">
-		<?php
-		if (isset($_SESSION["adminid"])) {
-			echo '<a class="navbar-brand" href="Dashboard.php">Dashboard</a>';
-		} else {
-			echo '<a class="navbar-brand" href="../Views/Index.php">Home</a>';
-		}
-		?>
+		<a class="navbar-brand" href="/newecommerce/customer/index.php">Home</a>
+
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
 			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
+		<div class="collapse navbar-collapse" style="margin-left: 77%;" id="navbarNav">
 			<ul class="navbar-nav">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+
+				<?php
+				if (isset($_SESSION["customerid"]) && !empty($_SESSION["customerid"])) {
+					echo "<li class='nav-item'>
+						<a class='nav-link' style='color:red;' href=
+						 '/newecommerce/customer/common/logout.php'
+	
+						>Logout</a>
+					</li>";
+				} else {
+					echo "<li class='nav-item'>
+					<a class='nav-link' href='/newecommerce/customer/login.php'>Login</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Features</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Pricing</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link disabled" href="#">Disabled</a>
-				</li>
+				<li class='nav-item'>
+					<a class='nav-link' href='/newecommerce/customer/register.php'>Register</a>
+				</li>";
+				}
+
+				?>
 			</ul>
 		</div>
 	</nav>

@@ -3,7 +3,7 @@ session_start();
 include __DIR__ . "../../Data/dbConnection.php";
 $obj = [
 	'email' => $_POST["email"],
-	'password' => $_POST["password"] 
+	'password' => $_POST["password"]
 ];
 
 if (isset($obj["email"])) {
@@ -27,16 +27,14 @@ if (isset($obj["email"])) {
 					$_SESSION["email"] = $row["Email"];
 					$_SESSION["adminid"] = $adminrow["ID"];
 					echo "authorized";
+					exit;
 				}
-			} else {
-				echo "<div class='alert alert-warning'>
-				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Invalid email or password</b>
-			</div>";
 			}
 		} else {
 			echo "<div class='alert alert-warning'>
-				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Invalid email or password2</b>
+				<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Invalid email or password</b>
 			</div>";
+			exit;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Update Product";
-include "../Views/Header.php";
+include __DIR__ . "/common/Header.php";
 if (isset($_GET["id"])) {
 	$id = $_GET["id"];
 	$sql = "SELECT ID AS ProductId, NAME AS productName , AUTHOR AS author, DESCRIPTION AS description,
@@ -129,5 +129,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 </div>
 <?php
-include "../Views/footer.php";
+include __DIR__ . "/common/footer.php";
 ?>

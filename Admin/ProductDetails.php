@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Product Details";
-include "../Views/Header.php";
+include "common/Header.php";
 
 if (isset($_GET["id"])) {
 	$id = $_GET["id"];
@@ -90,5 +90,5 @@ if (isset($_GET["id"])) {
 </div>
 </div>
 <?php
-include "../Views/footer.php"
+include "common/footer.php"
 	?>
