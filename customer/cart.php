@@ -10,8 +10,16 @@ include "common/Header.php";
 					<div class="card-body p-4">
 
 						<div class="row">
-							<h5 class="mb-3"><a href="#!" class="text-body"><i
-										class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+							<h5 style="display:inline-block; width: auto;" class="mb-3"><a
+									style="text-decoration: none;" href="#!" class="text-body"><i
+										class="fas fa-long-arrow-alt-left me-2"></i>Continue
+									shopping</a>
+							</h5>
+							<button style="display:inline-block; margin-left: 650px; border-width: 2px;" type="button"
+								class="btn btn-outline-primary mb-3 w-25"><a
+									style="text-decoration: none; color: black; font-weight: bold;"
+									href="checkout.php">Chekout</a></button>
+
 							<hr>
 
 							<div class="d-flex justify-content-between align-items-center mb-4">
@@ -21,7 +29,6 @@ include "common/Header.php";
 								</div>
 							</div>
 							<div class="col-lg-7" id="colToAppend">
-
 
 							</div>
 

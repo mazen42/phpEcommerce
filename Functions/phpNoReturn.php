@@ -1,4 +1,5 @@
 <?php
+include __DIR__ . "/../Data/dbConnection.php";
 function alert($message)
 {
 	$result = [
@@ -50,6 +51,33 @@ function deleteImageFromServer($path)
 		}
 	}
 	return alert("failed to delete");
+}
+function getUserCart($uid)
+{
+	global $conn;
+	$sql_cart = "SELECT PRODUCTID as id, P.IMAGEURL AS img, P.LISTPRICE as listprice ,P.PRICE as price,P.PRICE50 as price50,P.PRICE100 as price100,C.PCOUNT as count,(P.PRICE * C.PCOUNT) as total,P.NAME as name,P.DESCRIPTION as description FROM PRODUCTS P JOIN SHOPPINGCARTS C ON C.PRODUCTID = P.ID WHERE USERID = '$uid'";
+	$sql_cart_run = mysqli_query($conn, $sql_cart);
+	$data = [];
+	$totally = 0;
+	while ($row_cart = mysqli_fetch_assoc($sql_cart_run)) {
+		if ($row_cart["count"] >= 50) {
+			$row_cart["usedprice"] = $row_cart["price50"];
+			$row_cart["total"] = $row_cart["count"] * $row_cart["usedprice"];
+		}
+		if ($row_cart["count"] > 100) {
+			$row_cart["usedprice"] = $row_cart["price100"];
+			$row_cart["total"] = $row_cart["count"] * $row_cart["usedprice"];
+		}
+		if ($row_cart["count"] < 50) {
+			$row_cart["usedprice"] = $row_cart["price"];
+		}
+		$totally += $row_cart["total"];
+		$data[] = $row_cart;
+	}
+	return [
+		"totally" => $totally,
+		"data" => $data
+	];
 }
 
 ?>

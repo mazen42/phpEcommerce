@@ -1,6 +1,7 @@
 <?php
 session_start();
 include __DIR__ . "/../Data/dbConnection.php";
+include __DIR__ . "/../Functions/phpNoReturn.php";
 
 if (isset($_GET["cartCount"])) {
 	$userid = $_SESSION["uid"];
@@ -91,20 +92,9 @@ if (isset($_GET["cart"]) && !empty($_GET["cart"])) {
 		exit;
 
 	} else {
-		$sql_cart = "SELECT PRODUCTID as id, P.IMAGEURL AS img, P.LISTPRICE as listprice ,P.PRICE as price,P.PRICE50 as price50,P.PRICE100 as price100,C.PCOUNT as count,(P.PRICE * C.PCOUNT) as total,P.NAME as name,P.DESCRIPTION as description FROM PRODUCTS P JOIN SHOPPINGCARTS C ON C.PRODUCTID = P.ID WHERE USERID = '$userid'";
-		$sql_cart_run = mysqli_query($conn, $sql_cart);
-		$data = [];
-		$totally = 0;
-		while ($row_cart = mysqli_fetch_assoc($sql_cart_run)) {
-			if ($row_cart["count"] > 50) {
-				$row_cart["total"] = $row_cart["count"] * $row_cart["price50"];
-			}
-			if ($row_cart["count"] > 100) {
-				$row_cart["total"] = $row_cart["count"] * $row_cart["price100"];
-			}
-			$totally += $row_cart["total"];
-			$data[] = $row_cart;
-		}
+		$cart_function = getUserCart($userid);
+		$totally = $cart_function['totally'];
+		$data = $cart_function['data'];
 		echo json_encode([
 			"status" => true,
 			"totally" => $totally,
