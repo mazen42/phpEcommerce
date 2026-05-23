@@ -36,7 +36,7 @@ $sql_run = mysqli_query($conn, $sql_products);
 							<h5 class="text-dark mb-0" id="productprice">' . $price . '</h5>
 						</div>
 						' . $addtocartbtn . '
-						<button type="button" id = "detailsbtn" style="margin-left: 200px;" id = "detailsbtn" class="btn btn-info">Details</button>
+						<a href="productdetails.php?id=' . $productId . '"><button type="button" id = "detailsbtn" style="margin-left: 200px;" id = "detailsbtn" class="btn btn-info">Details</button></a>
 					</div>
 				</div>
 			</div>

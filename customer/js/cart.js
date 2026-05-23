@@ -57,7 +57,7 @@ function loadCartData(data) {
 
                 <input type="text"
                        value="${product.count}"
-                       class="form-control text-center mx-2"
+                       class="form-control text-center mx-2" readonly
                        style="width:70px;">
 
                 <button class="btn btn-outline-secondary plusbtn"

@@ -29,6 +29,7 @@ if (isset($_GET["cartCount"])) {
 if (isset($_GET["productId"]) && !empty($_GET["productId"])) {
 	header('Content-Type: application/json');
 	$productid = $_GET["productId"];
+	$count = $_GET["count"];
 	$customerid = $_SESSION["customerid"];
 	$userId = $_SESSION["uid"];
 	if (empty($customerid)) {
@@ -45,7 +46,7 @@ if (isset($_GET["productId"]) && !empty($_GET["productId"])) {
 		$row_cart_check = mysqli_fetch_assoc($sql_check_exists_product_run);
 		$curDate = date('Y-m-d H:i');
 		if (!$row_cart_check) {
-			$sql_create_cart = "INSERT INTO shoppingcarts (`CREATEDAT`,`PCOUNT`,`PRODUCTID`,`USERID`) VALUES ('$curDate','1','$productid','$userId')";
+			$sql_create_cart = "INSERT INTO shoppingcarts (`CREATEDAT`,`PCOUNT`,`PRODUCTID`,`USERID`) VALUES ('$curDate','$count','$productid','$userId')";
 			$sql_create_cart_run = mysqli_query($conn, $sql_create_cart);
 			if ($sql_create_cart_run) {
 				echo json_encode([
@@ -65,7 +66,7 @@ if (isset($_GET["productId"]) && !empty($_GET["productId"])) {
 				exit;
 			}
 		} else {
-			$sql_update_cart = "update shoppingcarts set PCOUNT = PCOUNT + 1 where userid = '$userId' and productid = '$productid'";
+			$sql_update_cart = "update shoppingcarts set PCOUNT = PCOUNT + $count where userid = '$userId' and productid = '$productid'";
 			$sql_update_cart_run = mysqli_query($conn, $sql_update_cart);
 			echo json_encode([
 				"status" => true,

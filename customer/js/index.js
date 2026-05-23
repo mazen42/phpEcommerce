@@ -1,5 +1,9 @@
 let carticon = $("#carticon");
-
+let addtocartbtnlocaldetails = $(".addtocartbtnlocaldetails");
+let addtocartbtnDBdetails = $(".addtocartbtnDBdetails");
+let minusbtndetails = $(".minusbtndetails");
+let plusbtndetails = $(".plusbtndetails");
+let countToAdd = $(".count");
 $(function () {
 	loadLocalCartIcon();
 	cartCount();
@@ -10,19 +14,25 @@ $(function () {
 		addToCartDB($(this).data("id"));
 	});
 });
+addtocartbtnlocaldetails.click(function () {
+	addToCartLocal($(this).data("id"), countToAdd.val());
+});
 
-// addtocartbtn.click(function () {
-// 	let productid = $(this).data("id");
-// 	$.ajax({
-// 		url: "../dbqueries.php",
-// 		method: "GET",
-// 		data: { addtocart: productid },
-// 		success: function (result) {},
-// 	});
-// });
+addtocartbtnDBdetails.click(function () {
+	addToCartDB($(this).data("id"), countToAdd.val());
+});
+minusbtndetails.click(function () {
+	if (Number(countToAdd.val()) == 1) return;
 
-function addToCartLocal(id) {
+	countToAdd.val(Number(countToAdd.val()) - 1);
+});
+plusbtndetails.click(function () {
+	countToAdd.val(Number(countToAdd.val()) + 1);
+});
+
+function addToCartLocal(id, countToAdd = 1) {
 	let productid = id;
+	let countparam = Number(countToAdd);
 	if (!localStorage.getItem("products")) {
 		let products = [];
 		localStorage.setItem("products", JSON.stringify(products));
@@ -32,7 +42,7 @@ function addToCartLocal(id) {
 	if (!check_product_exists) {
 		cart.push({
 			id: productid,
-			count: 1,
+			count: countparam,
 		});
 		toaster(`<div class="alert alert-primary" role="alert">
 					Product added to cart
@@ -40,7 +50,7 @@ function addToCartLocal(id) {
 	} else {
 		cart.forEach((element) => {
 			if (element.id == productid) {
-				element.count++;
+				element.count = countparam + Number(element.count);
 			}
 		});
 		toaster(`<div class="alert alert-primary" role="alert">
@@ -50,14 +60,14 @@ function addToCartLocal(id) {
 	localStorage.setItem("products", JSON.stringify(cart));
 	loadLocalCartIcon();
 }
-function addToCartDB(id) {
+function addToCartDB(id, countparam = 1) {
 	let productid = id;
 	console.log(productid);
 	$.ajax({
 		url: "dbqueries.php",
 		datatype: "json",
 		method: "GET",
-		data: { productId: id },
+		data: { productId: id, count: countparam },
 		success: function (result) {
 			toaster(result.data);
 		},
