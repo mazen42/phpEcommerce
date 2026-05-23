@@ -14,51 +14,51 @@ include "common/Header.php";
 							<form id="registerform">
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example1cg">Your FirstName</label>
 									<input type="text" name="firstname" id="form3Example1cg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example1cg">Your FirstName</label>
 								</div>
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example1cg">Your LastName</label>
 									<input type="text" name="lastname" id="form3Example1cg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example1cg">Your LastName</label>
 								</div>
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example1cg">City</label>
 									<input type="text" name="city" id="form3Example1cg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example1cg">City</label>
 								</div>
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example1cg">Mobile Number</label>
 									<input type="text" name="mobilenumber" id="form3Example1cg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example1cg">Mobile Number</label>
 								</div>
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example1cg">Second mobile number</label>
 									<input type="text" name="secondmoblienumber" id="form3Example1cg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example1cg">Second mobile number</label>
 								</div>
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example3cg">Your Email</label>
 									<input type="email" name="email" id="form3Example3cg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example3cg">Your Email</label>
 								</div>
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example4cg">Password</label>
 									<input type="password" name="password" id="form3Example4cg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example4cg">Password</label>
 								</div>
 
 								<div data-mdb-input-init class="form-outline mb-4">
+									<label class="form-label" for="form3Example4cdg">Repeat your password</label>
 									<input type="password" name="passwordconfirmation" id="form3Example4cdg"
 										class="form-control form-control-lg" />
-									<label class="form-label" for="form3Example4cdg">Repeat your password</label>
 								</div>
 
 								<div class="form-check d-flex justify-content-center mb-5">

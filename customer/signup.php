@@ -109,10 +109,6 @@ if (isset($_POST["firstname"])) {
 				$createCustomer = "INSERT INTO customers(`USERID`) VALUES ('$lastInsertedId')";
 				$customerCreation = mysqli_query($conn, $createCustomer);
 				if ($customerCreation) {
-					$customerId = mysqli_insert_id($conn);
-					$_SESSION["customerid"] = $customerId;
-					$_SESSION["uid"] = $lastInsertedId;
-					$_SESSION["FirstName"] = $row["FirstName"];
 					echo "registerd_successfully";
 					exit();
 				}

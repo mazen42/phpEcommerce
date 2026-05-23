@@ -5,6 +5,7 @@ include __DIR__ . "/../../Functions/phpNoReturn.php";
 if (!isset($pageTitle)) {
 	$pageTitle = "Default";
 }
+$cartLink = '<a href="/newecommerce/customer/cart.php"><i class="bi bi-cart" id="carticon"></i></a>';
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +28,12 @@ if (!isset($pageTitle)) {
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 20px; font-size: 20px">
 		<a class="navbar-brand" href="/newecommerce/customer/index.php">Home</a>
+		<a href="/newecommerce/customer/cart.php"><i class="bi bi-cart" id="carticon"></i></a>
+		<?php
+		if ($_SERVER['SCRIPT_NAME'] == "/newecommerce/customer/cart.php") {
+			echo '<button type="button" id="totally" disabled class="btn btn-outline-primary" style="margin-left:6px;"> Total: $ <strong> </strong> </button>';
+		}
+		?>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
 			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

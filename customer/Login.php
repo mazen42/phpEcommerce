@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					$_SESSION["uid"] = $row["userId"];
 					$_SESSION["email"] = $row["Email"];
 					$_SESSION["customerid"] = $adminrow["ID"];
-					header("Location: index.php");
+					header("Location: mergeCart.php");
 					exit;
 				}
 			}

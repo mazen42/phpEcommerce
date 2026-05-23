@@ -9,7 +9,7 @@ registerSubmit.click(function (e) {
 		data: $("#registerform").serialize(),
 		success: function (data) {
 			if (data.trim() == "registerd_successfully") {
-				window.location.href = "index.php";
+				window.location.href = "Login.php";
 				$("#desc").html("Registered Successfully");
 			} else {
 				console.log("reviewData");
