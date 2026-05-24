@@ -52,10 +52,10 @@ function deleteImageFromServer($path)
 	}
 	return alert("failed to delete");
 }
-function getUserCart($uid)
+function getUserCart($uid, $done = 0)
 {
 	global $conn;
-	$sql_cart = "SELECT PRODUCTID as id, P.IMAGEURL AS img, P.LISTPRICE as listprice ,P.PRICE as price,P.PRICE50 as price50,P.PRICE100 as price100,C.PCOUNT as count,(P.PRICE * C.PCOUNT) as total,P.NAME as name,P.DESCRIPTION as description FROM PRODUCTS P JOIN SHOPPINGCARTS C ON C.PRODUCTID = P.ID WHERE USERID = '$uid'";
+	$sql_cart = "SELECT PRODUCTID as id,C.ID as cartid, P.IMAGEURL AS img, P.LISTPRICE as listprice ,P.PRICE as price,P.PRICE50 as price50,P.PRICE100 as price100,C.PCOUNT as count,(P.PRICE * C.PCOUNT) as total,P.NAME as name,P.DESCRIPTION as description FROM PRODUCTS P JOIN SHOPPINGCARTS C ON C.PRODUCTID = P.ID WHERE USERID = '$uid' and c.DONE = $done";
 	$sql_cart_run = mysqli_query($conn, $sql_cart);
 	$data = [];
 	$totally = 0;

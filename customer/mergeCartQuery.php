@@ -11,7 +11,7 @@ if (count($data) > 0) {
 	}
 	$idsArray = array_map('productsids', $data);
 	$idsImploaded = implode(",", $idsArray);
-	$sql_check_exists_products = "SELECT PRODUCTID FROM shoppingcarts where USERID = '$userid' and PRODUCTID in ($idsImploaded)";
+	$sql_check_exists_products = "SELECT PRODUCTID FROM shoppingcarts where USERID = '$userid' and PRODUCTID in ($idsImploaded) and DONE = 0";
 	$sql_check_exists_products_run = mysqli_query($conn, $sql_check_exists_products);
 	$exsists_ids = [];
 	while ($row = mysqli_fetch_assoc($sql_check_exists_products_run)) {
@@ -19,7 +19,7 @@ if (count($data) > 0) {
 			$pid = $row["PRODUCTID"];
 			if ($item['id'] == $pid) {
 				$qty = intval($item['count']);
-				$sql_update_count = "UPDATE shoppingcarts set PCOUNT = PCOUNT + $qty WHERE USERID = '$userid' and PRODUCTID = '$pid'";
+				$sql_update_count = "UPDATE shoppingcarts set PCOUNT = PCOUNT + $qty WHERE USERID = '$userid' and PRODUCTID = '$pid' and DONE = 0";
 				$sql_update_count_run = mysqli_query($conn, $sql_update_count);
 				array_push($exsists_ids, $pid);
 			}

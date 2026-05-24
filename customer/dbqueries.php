@@ -14,7 +14,7 @@ if (isset($_GET["cartCount"])) {
 		]);
 		exit;
 	} else {
-		$sql_get_cart_count = "SELECT SUM(PCOUNT) as count FROM shoppingcarts where USERID = '$userid'";
+		$sql_get_cart_count = "SELECT SUM(PCOUNT) as count FROM shoppingcarts where USERID = '$userid' and DONE = 0";
 		$sql_get_cart_count_run = mysqli_query($conn, $sql_get_cart_count);
 		$row_count = mysqli_fetch_assoc($sql_get_cart_count_run);
 		echo json_encode([
@@ -42,7 +42,7 @@ if (isset($_GET["productId"]) && !empty($_GET["productId"])) {
 		]);
 		exit;
 	} else {
-		$sql_check_exists_product = "SELECT ID FROM shoppingcarts where PRODUCTID = '$productid' && USERID = '$userId'";
+		$sql_check_exists_product = "SELECT ID FROM shoppingcarts where PRODUCTID = '$productid' && USERID = '$userId' and DONE = 0";
 		$sql_check_exists_product_run = mysqli_query($conn, $sql_check_exists_product);
 		$row_cart_check = mysqli_fetch_assoc($sql_check_exists_product_run);
 		$curDate = date('Y-m-d H:i');
@@ -67,7 +67,7 @@ if (isset($_GET["productId"]) && !empty($_GET["productId"])) {
 				exit;
 			}
 		} else {
-			$sql_update_cart = "update shoppingcarts set PCOUNT = PCOUNT + $count where userid = '$userId' and productid = '$productid'";
+			$sql_update_cart = "update shoppingcarts set PCOUNT = PCOUNT + $count where userid = '$userId' and productid = '$productid' and DONE = 0";
 			$sql_update_cart_run = mysqli_query($conn, $sql_update_cart);
 			echo json_encode([
 				"status" => true,
@@ -92,7 +92,7 @@ if (isset($_GET["cart"]) && !empty($_GET["cart"])) {
 		exit;
 
 	} else {
-		$cart_function = getUserCart($userid);
+		$cart_function = getUserCart($userid, 0);
 		$totally = $cart_function['totally'];
 		$data = $cart_function['data'];
 		echo json_encode([
@@ -164,11 +164,11 @@ if (!empty($_GET["minus"])) {
 		]);
 		exit;
 	} else {
-		$sql_minus = "SELECT PCOUNT as count from shoppingcarts where PRODUCTID = $productid and USERID = $userid";
+		$sql_minus = "SELECT PCOUNT as count from shoppingcarts where PRODUCTID = $productid and USERID = $userid and DONE = 0";
 		$sql_minus_run = mysqli_query($conn, $sql_minus);
 		if ($row = mysqli_fetch_assoc($sql_minus_run)) {
 			if ($row["count"] > 1) {
-				$sql_update_count = "UPDATE shoppingcarts set PCOUNT = PCOUNT - 1 where USERID = $userid and PRODUCTID = $productid";
+				$sql_update_count = "UPDATE shoppingcarts set PCOUNT = PCOUNT - 1 where USERID = $userid and PRODUCTID = $productid and DONE = 0";
 				$sql_update_count_run = mysqli_query($conn, $sql_update_count);
 				if ($sql_update_count_run) {
 					echo json_encode([
@@ -178,7 +178,7 @@ if (!empty($_GET["minus"])) {
 					exit;
 				}
 			} else {
-				$sql_delete_cart = "DELETE from shoppingcarts where USERID = $userid AND PRODUCTID = $productid ";
+				$sql_delete_cart = "DELETE from shoppingcarts where USERID = $userid AND PRODUCTID = $productid and DONE = 0";
 				$sql_delete_cart_run = mysqli_query($conn, $sql_delete_cart);
 				if ($sql_delete_cart_run) {
 					echo json_encode([
@@ -202,7 +202,7 @@ if (!empty($_GET["plus"])) {
 		]);
 		exit;
 	} else {
-		$sql_update_count = "UPDATE shoppingcarts set PCOUNT = PCOUNT + 1 where USERID = $userid and PRODUCTID = $productid";
+		$sql_update_count = "UPDATE shoppingcarts set PCOUNT = PCOUNT + 1 where USERID = $userid and PRODUCTID = $productid and DONE = 0";
 		$sql_update_count_run = mysqli_query($conn, $sql_update_count);
 		if ($sql_update_count_run) {
 			echo json_encode([
@@ -223,7 +223,7 @@ if (!empty($_GET["delete"])) {
 		]);
 		exit;
 	} else {
-		$sql_delete_cart = "DELETE from shoppingcarts where USERID = $userid AND PRODUCTID = $productid ";
+		$sql_delete_cart = "DELETE from shoppingcarts where USERID = $userid AND PRODUCTID = $productid and DONE = 0";
 		$sql_delete_cart_run = mysqli_query($conn, $sql_delete_cart);
 		if ($sql_delete_cart_run) {
 			echo json_encode([
