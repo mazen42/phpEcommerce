@@ -26,6 +26,19 @@ if (isset($_GET["cartCount"])) {
 
 }
 
+if (!empty($_POST["localProductsids"])) {
+	$ids = json_decode($_POST["localProductsids"]);
+	$imploaded = implode(",", $ids);
+	$sql_check = "select ID from products where ID in ($imploaded)";
+	$sql_check_run = mysqli_query($conn, $sql_check);
+	$data = mysqli_fetch_all($sql_check_run, MYSQLI_ASSOC);
+	header("Content-Type: application/json");
+	echo json_encode([
+		"data" => $data
+	]);
+
+}
+
 
 if (isset($_GET["productId"]) && !empty($_GET["productId"])) {
 	header('Content-Type: application/json');

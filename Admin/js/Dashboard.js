@@ -81,7 +81,7 @@ function deleteProduct(element) {
 				loadProducts();
 				toaster("deleted");
 			} else {
-				toaster("deleted");
+				toaster(data);
 			}
 		},
 	});

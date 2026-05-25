@@ -221,7 +221,7 @@ function decreamentLocally(id) {
 		localStorage.setItem("products", JSON.stringify(products));
 	}
 }
-function deleteLocally(id) {
+export function deleteLocally(id) {
 	if (localStorage.getItem("products")) {
 		let products = JSON.parse(localStorage.getItem("products")) || [];
 		products.forEach((element, index) => {

@@ -27,15 +27,19 @@ if (count($data) > 0) {
 	}
 	$not_exsists_ids = array_diff($idsArray, $exsists_ids);
 	$curDate = date('Y-m-d H:i');
-	foreach ($data as $item) {
-		$pid = $item['id'];
-		if (in_array($pid, $not_exsists_ids)) {
-			$count = $item['count'];
-			$sql_create_cart = "INSERT INTO shoppingcarts (`CREATEDAT`,`PCOUNT`,`PRODUCTID`,`USERID`) VALUES ('$curDate','$count','$pid','$userid')";
-			$sql_create_cart_run = mysqli_query($conn, $sql_create_cart);
+	if (count($not_exsists_ids) > 0) {
+		foreach ($data as $item) {
+			$pid = $item['id'];
+			if (in_array($pid, $not_exsists_ids)) {
+				$count = $item['count'];
+				$sql_create_cart = "INSERT INTO shoppingcarts (`CREATEDAT`,`PCOUNT`,`PRODUCTID`,`USERID`) VALUES ('$curDate','$count','$pid','$userid')";
+				$sql_create_cart_run = mysqli_query($conn, $sql_create_cart);
+			}
+
+
 		}
-
-
+		echo "done";
+		exit;
 	}
 	echo "done";
 	exit;

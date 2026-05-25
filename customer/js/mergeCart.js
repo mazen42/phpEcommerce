@@ -4,14 +4,17 @@ $(function () {
 		$.ajax({
 			url: "mergeCartQuery.php",
 			method: "POST",
-			contentType: "application/json; charset=utf-8",
+			contentType: "application/json",
 			data: products,
 			success: function (result) {
 				if (result == "done") {
+					console.log("hello");
 					window.localStorage.removeItem("products");
 					window.location.href = "index.php";
 				} else {
-					console.log("result");
+					console.log("error");
+
+					console.log(result);
 				}
 			},
 		});

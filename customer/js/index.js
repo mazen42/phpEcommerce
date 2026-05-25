@@ -96,11 +96,29 @@ export function cartCount() {
 export function loadLocalCartIcon() {
 	if (localStorage.getItem("products")) {
 		let cart = JSON.parse(localStorage.getItem("products")) || [];
-		let count = cart.reduce((sum, item) => {
-			return sum + item.count;
-		}, 0);
-		carticon.text(count);
-	} else {
-		carticon.text("0");
+		let ids = cart.map((element) => element.id);
+		$.ajax({
+			url: "dbqueries.php",
+			method: "POST",
+			dataType: "json",
+			data: { localProductsids: JSON.stringify(ids) },
+			success: function (result) {
+				let counter = 0;
+				let cartMap = new Map();
+				cart.forEach((element) => {
+					cartMap.set(Number(element.id), element.count);
+				});
+				let newcart = [];
+				result.data.forEach((element) => {
+					let eid = Number(element.ID);
+					if (cartMap.has(eid)) {
+						counter += cartMap.get(eid);
+						newcart.push({ id: eid, count: cartMap.get(eid) });
+					}
+				});
+				localStorage.setItem("products", JSON.stringify(newcart));
+				carticon.text(counter);
+			},
+		});
 	}
 }
