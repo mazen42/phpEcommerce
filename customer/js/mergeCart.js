@@ -12,9 +12,7 @@ $(function () {
 					window.localStorage.removeItem("products");
 					window.location.href = "index.php";
 				} else {
-					console.log("error");
-
-					console.log(result);
+					window.location.href = "index.php";
 				}
 			},
 		});

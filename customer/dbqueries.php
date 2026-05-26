@@ -19,14 +19,14 @@ if (isset($_GET["cartCount"])) {
 		$row_count = mysqli_fetch_assoc($sql_get_cart_count_run);
 		echo json_encode([
 			"status" => true,
-			"data" => $row_count["count"]
+			"data" => $row_count["count"] ?? 0
 		]);
 		exit;
 	}
 
 }
 
-if (!empty($_POST["localProductsids"])) {
+if (isset($_POST["localProductsids"])) {
 	$ids = json_decode($_POST["localProductsids"]);
 	$imploaded = implode(",", $ids);
 	$sql_check = "select ID from products where ID in ($imploaded)";

@@ -119,6 +119,9 @@ export function loadLocalCartIcon() {
 				localStorage.setItem("products", JSON.stringify(newcart));
 				carticon.text(counter);
 			},
+			error: function () {
+				carticon.text("0");
+			},
 		});
 	}
 }
