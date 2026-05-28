@@ -4,15 +4,18 @@ let addtocartbtnDBdetails = $(".addtocartbtnDBdetails");
 let minusbtndetails = $(".minusbtndetails");
 let plusbtndetails = $(".plusbtndetails");
 let countToAdd = $(".count");
+let search = $(".search-input");
+let mainRow = $(".mainrow");
+let addToCartLinkvalue = $("#addToCartLink").attr("value");
 $(function () {
 	loadLocalCartIcon();
 	cartCount();
-	$(".card").on("click", ".addtocartbtnlocal", function () {
-		addToCartLocal($(this).data("id"));
-	});
-	$(".card").on("click", ".addtocartbtnDB", function () {
-		addToCartDB($(this).data("id"));
-	});
+});
+$(".card").on("click", ".addtocartbtnlocal", function () {
+	addToCartLocal($(this).data("id"));
+});
+$(".card").on("click", ".addtocartbtnDB", function () {
+	addToCartDB($(this).data("id"));
 });
 addtocartbtnlocaldetails.click(function () {
 	addToCartLocal($(this).data("id"), countToAdd.val());
@@ -28,6 +31,27 @@ minusbtndetails.click(function () {
 });
 plusbtndetails.click(function () {
 	countToAdd.val(Number(countToAdd.val()) + 1);
+});
+search.on("input", function () {
+	clearTimeout(timeout);
+	let val = $(this).val().trim();
+	var timeout = setTimeout(() => {
+		if (val.length >= 3) {
+			$.ajax({
+				url: "dbqueries.php",
+				method: "POST",
+				dataType: "json",
+				data: { search: val },
+				success: function (result) {
+					console.log(result.data);
+					mainRow.html("");
+					loadSearchData(result.data);
+				},
+			});
+		} else {
+			mainRow.html("");
+		}
+	}, 300);
 });
 
 function addToCartLocal(id, countToAdd = 1) {
@@ -124,4 +148,33 @@ export function loadLocalCartIcon() {
 			},
 		});
 	}
+}
+
+function loadSearchData(elements) {
+	elements.forEach((data) => {
+		let addToCartTag = `<button type="button" data-id = "${data.id}" class="btn btn-primary ${addToCartLinkvalue == 0 ? "addtocartbtnlocal" : "addtocartbtnDB"}">add to cart</button></a>`;
+		let content = `<div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+				<div class="card"><div class="card">
+					<img id="productimage" src='/newecommerce/uploads/${data.imageurl}'
+						class="card-img-top" alt="${data.categoryname}" />
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<p class="small"><a href="#!" id="productcategory" class="text-muted">${data.categoryname}</a></p>
+							<p class="small text-danger" id="productlistprice"><s>$${data.listprice}</s></p>
+						</div>
+
+						<div class="d-flex justify-content-between mb-3">
+							<h5 class="mb-0" id="productname">${data.productname}</h5>
+							<h5 class="text-dark mb-0" id="productprice">${data.price}</h5>
+						</div>
+						${addToCartTag}
+
+						<a href="productdetails.php?id=${data.id}"><button type="button" id = "detailsbtn" style="margin-left: 200px;" id = "detailsbtn" class="btn btn-info">Details</button></a>
+					</div>
+				</div>
+				</div>
+				</div>`;
+
+		mainRow.append(content);
+	});
 }

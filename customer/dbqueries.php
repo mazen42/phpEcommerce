@@ -38,6 +38,19 @@ if (isset($_POST["localProductsids"])) {
 	]);
 
 }
+if (!empty($_POST["search"])) {
+	$value = $_POST["search"];
+	$sql_search = "SELECT p.ID as id, p.listprice, p.price, p.name as productname, p.imageurl,c.name as categoryname FROM products p join categories c on p.categoryid = c.id where p.name LIKE '$value%'";
+	$sql_search_run = mysqli_query($conn, $sql_search);
+	$data = mysqli_fetch_all($sql_search_run, MYSQLI_ASSOC);
+	header("Content-Type: application/json");
+	echo json_encode([
+		"status" => true,
+		"data" => $data
+	]);
+	exit;
+
+}
 
 
 if (isset($_GET["productId"]) && !empty($_GET["productId"])) {

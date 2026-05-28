@@ -1,13 +1,25 @@
 <?php
 $pageTitle = "Home";
 include "common/Header.php";
-$sql_products = "SELECT p.ID, p.listprice, p.price, p.name as productname, p.imageurl,c.name as categoryname FROM products p join categories c on p.categoryid = c.id";
+$sql_products = "SELECT p.ID, p.listprice, p.price, p.name as productname, p.imageurl,c.name as categoryname FROM products p join categories c on p.categoryid = c.id limit 6";
 $sql_run = mysqli_query($conn, $sql_products);
+$LoggedOrNot = 0;
 ?>
+
 <section style="background-color: #eee;">
+	<div class="container">
+		<div class=" row justify-content-center">
+			<div class="col-md-6" style="margin-top: 10px;">
+				<div class="search-container" style="display:flex">
+					<i class="fas fa-search search-icon" style="margin-top: 10px; margin-right: 5px;"></i>
+					<input type="text" class="form-control search-input" placeholder="Search...">
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id="toastee" class="position-fixed bottom-0 end-0 p-3"></div>
 	<div class="container py-5">
-		<div class="row">
+		<div class="row mainrow">
 			<!--  -->
 			<?php
 			while ($row = mysqli_fetch_assoc($sql_run)) {
@@ -20,6 +32,7 @@ $sql_run = mysqli_query($conn, $sql_products);
 				$addtocartbtn = '<button type="button" data-id = "' . $productId . '" class="btn btn-primary addtocartbtnlocal">add to cart</button></a>';
 				if (isset($_SESSION["customerid"]) && !empty($_SESSION["customerid"])) {
 					$addtocartbtn = '<button type="button" data-id = "' . $productId . '" class="btn btn-primary addtocartbtnDB">add to cart</button></a>';
+					$LoggedOrNot = 1;
 				}
 				echo '<div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
 				<div class="card">
@@ -44,7 +57,7 @@ $sql_run = mysqli_query($conn, $sql_products);
 			}
 
 			?>
-
+			<div hidden id="addToCartLink" value="<?= $LoggedOrNot ?>"></div>
 			<!--  -->
 		</div>
 	</div>
