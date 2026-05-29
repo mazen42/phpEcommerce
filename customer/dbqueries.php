@@ -51,6 +51,19 @@ if (!empty($_POST["search"])) {
 	exit;
 
 }
+if (!empty($_POST["searchnames"])) {
+	$value = $_POST["searchnames"];
+	$sql_search = "SELECT ID as id, name as productname from products where name LIKE '%$value%'";
+	$sql_search_run = mysqli_query($conn, $sql_search);
+	$data = mysqli_fetch_all($sql_search_run, MYSQLI_ASSOC);
+	header("Content-Type: application/json");
+	echo json_encode([
+		"status" => true,
+		"data" => $data
+	]);
+	exit;
+
+}
 
 
 if (isset($_GET["productId"]) && !empty($_GET["productId"])) {

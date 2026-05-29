@@ -39,7 +39,16 @@ $cartLink = '<a href="/newecommerce/customer/cart.php"><i class="bi bi-cart" id=
 			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" style="margin-left: 77%;" id="navbarNav">
+		<div class="search-container" style="display:flex">
+			<input type="text" class="form-control search-input" style=" width:500px; margin-left: 200px;"
+				placeholder="Search...">
+			<i class="fas fa-search search-icon" style="margin-top: 10px; margin-left: 5px;"></i>
+
+			<div id="searchResults" class="list-group position-absolute z-3"
+				style="top:82%; left: 27.5%; width: 515px;">
+			</div>
+		</div>
+		<div class="collapse navbar-collapse" style="margin-left: 25%;" id="navbarNav">
 			<ul class="navbar-nav">
 
 				<?php

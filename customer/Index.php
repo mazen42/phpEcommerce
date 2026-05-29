@@ -10,10 +10,7 @@ $LoggedOrNot = 0;
 	<div class="container">
 		<div class=" row justify-content-center">
 			<div class="col-md-6" style="margin-top: 10px;">
-				<div class="search-container" style="display:flex">
-					<i class="fas fa-search search-icon" style="margin-top: 10px; margin-right: 5px;"></i>
-					<input type="text" class="form-control search-input" placeholder="Search...">
-				</div>
+
 			</div>
 		</div>
 	</div>
@@ -57,10 +54,10 @@ $LoggedOrNot = 0;
 			}
 
 			?>
-			<div hidden id="addToCartLink" value="<?= $LoggedOrNot ?>"></div>
 			<!--  -->
 		</div>
 	</div>
+	<div hidden id="addToCartLink" value="<?= $LoggedOrNot ?>"></div>
 </section>
 <?php
 include "common/footer.php";

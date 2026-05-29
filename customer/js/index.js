@@ -6,6 +6,7 @@ let plusbtndetails = $(".plusbtndetails");
 let countToAdd = $(".count");
 let search = $(".search-input");
 let mainRow = $(".mainrow");
+let searchResults = $("#searchResults");
 let addToCartLinkvalue = $("#addToCartLink").attr("value");
 $(function () {
 	loadLocalCartIcon();
@@ -32,6 +33,14 @@ minusbtndetails.click(function () {
 plusbtndetails.click(function () {
 	countToAdd.val(Number(countToAdd.val()) + 1);
 });
+search.on("blur", function () {
+	setTimeout(() => {
+		searchResults.hide();
+	}, 200);
+});
+search.on("focus", function () {
+	searchResults.show();
+});
 search.on("input", function () {
 	clearTimeout(timeout);
 	let val = $(this).val().trim();
@@ -41,15 +50,20 @@ search.on("input", function () {
 				url: "dbqueries.php",
 				method: "POST",
 				dataType: "json",
-				data: { search: val },
+				data: { searchnames: val },
 				success: function (result) {
-					console.log(result.data);
-					mainRow.html("");
-					loadSearchData(result.data);
+					searchResults.html("");
+					result.data.forEach((element) => {
+						let content = `
+						<a href="productssearched.php?searchedname=${element.productname}" class="list-group-item list-group-item-action">
+							${element.productname}
+						</a>`;
+						searchResults.append(content);
+					});
 				},
 			});
 		} else {
-			mainRow.html("");
+			searchResults.html("");
 		}
 	}, 300);
 });
@@ -150,31 +164,35 @@ export function loadLocalCartIcon() {
 	}
 }
 
-function loadSearchData(elements) {
-	elements.forEach((data) => {
-		let addToCartTag = `<button type="button" data-id = "${data.id}" class="btn btn-primary ${addToCartLinkvalue == 0 ? "addtocartbtnlocal" : "addtocartbtnDB"}">add to cart</button></a>`;
-		let content = `<div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
-				<div class="card"><div class="card">
-					<img id="productimage" src='/newecommerce/uploads/${data.imageurl}'
-						class="card-img-top" alt="${data.categoryname}" />
-					<div class="card-body">
-						<div class="d-flex justify-content-between">
-							<p class="small"><a href="#!" id="productcategory" class="text-muted">${data.categoryname}</a></p>
-							<p class="small text-danger" id="productlistprice"><s>$${data.listprice}</s></p>
-						</div>
+// function loadSearchData(elements) {
+// 	elements.forEach((data) => {
+// 		let addToCartTag = `<button type="button" data-id = "${data.id}" class="btn btn-primary ${addToCartLinkvalue == 0 ? "addtocartbtnlocal" : "addtocartbtnDB"}">add to cart</button></a>`;
+// 		let content = `
 
-						<div class="d-flex justify-content-between mb-3">
-							<h5 class="mb-0" id="productname">${data.productname}</h5>
-							<h5 class="text-dark mb-0" id="productprice">${data.price}</h5>
-						</div>
-						${addToCartTag}
+// 		<div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+// 				<div class="card"><div class="card">
+// 					<img id="productimage" src='/newecommerce/uploads/${data.imageurl}'
+// 						class="card-img-top" alt="${data.categoryname}" />
+// 					<div class="card-body">
+// 						<div class="d-flex justify-content-between">
+// 							<p class="small"><a href="#!" id="productcategory" class="text-muted">${data.categoryname}</a></p>
+// 							<p class="small text-danger" id="productlistprice"><s>$${data.listprice}</s></p>
+// 						</div>
 
-						<a href="productdetails.php?id=${data.id}"><button type="button" id = "detailsbtn" style="margin-left: 200px;" id = "detailsbtn" class="btn btn-info">Details</button></a>
-					</div>
-				</div>
-				</div>
-				</div>`;
+// 						<div class="d-flex justify-content-between mb-3">
+// 							<h5 class="mb-0" id="productname">${data.productname}</h5>
+// 							<h5 class="text-dark mb-0" id="productprice">${data.price}</h5>
+// 						</div>
+// 						${addToCartTag}
 
-		mainRow.append(content);
-	});
-}
+// 						<a href="productdetails.php?id=${data.id}"><button type="button" id = "detailsbtn" style="margin-left: 200px;" id = "detailsbtn" class="btn btn-info">Details</button></a>
+// 					</div>
+// 				</div>
+// 				</div>
+// 				</div>`;
+// 	});
+// 	searchedrow.html("");
+// 	searchedrow.append(content);
+// 	searchedrow;
+// 	mainRow.hide();
+// }
