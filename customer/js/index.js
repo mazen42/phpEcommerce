@@ -8,6 +8,7 @@ let search = $(".search-input");
 let mainRow = $(".mainrow");
 let searchResults = $("#searchResults");
 let addToCartLinkvalue = $("#addToCartLink").attr("value");
+let overlay = $("#overlay");
 $(function () {
 	loadLocalCartIcon();
 	cartCount();
@@ -34,12 +35,14 @@ plusbtndetails.click(function () {
 	countToAdd.val(Number(countToAdd.val()) + 1);
 });
 search.on("blur", function () {
+	overlay.css("display", "none");
 	setTimeout(() => {
 		searchResults.hide();
-	}, 200);
+	}, 100);
 });
 search.on("focus", function () {
 	searchResults.show();
+	overlay.css("display", "block");
 });
 search.on("input", function () {
 	clearTimeout(timeout);

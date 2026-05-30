@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$zip = $_POST["zip"];
 	$street = $_POST["street"];
 	$sql_insert_order_header = "insert into orderheader (`USERID`,`ORDERTOTAL`,`NAME`,`PHONENUMBER`,`STREETADDRESS`,`POSTALCODE`,`COUNTRY`,`STATE`,`CITY`)
-	VALUES ('$userid','$orderTotal','$firstname . $lastName','$phonenumber','$street','$zip','$country','$state','$city')";
+	VALUES ('$userid','$orderTotal','$firstname $lastName','$phonenumber','$street','$zip','$country','$state','$city')";
 	$sql_insert_order_header_run = mysqli_query($conn, $sql_insert_order_header);
 	if ($sql_insert_order_header_run) {
 		$order_header_id = mysqli_insert_id($conn);
@@ -82,15 +82,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			</h4>
 			<?php
 			foreach ($data as $item) {
-				echo '<ul class="list-group mb-3">
-				<li class="list-group-item d-flex justify-content-between lh-sm">
-					<div>
-						<h6 class="my-0">' . $item["name"] . ' </h6>
-						<small class="text-muted">' . $item["description"] . '</small>
-					</div>
-					<span class="text-muted"> ' . $item["count"] . ' * $' . $item["usedprice"] . ' = ' . $item["total"] . '</span>
-				</li>
-			</ul>';
+				echo '
+<ul class="list-group mb-3">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+        <div class="d-flex align-items-center">
+            <img src="../uploads/' . $item["img"] . '" 
+                 alt="' . $item["name"] . '" 
+                 class="me-3 rounded"
+                 style="width:60px;height:60px;object-fit:cover;">
+
+            <div>
+                <h6 class="my-0">' . $item["name"] . '</h6>
+                <small class="text-muted">' . $item["description"] . '</small>
+            </div>
+        </div>
+
+        <span class="text-muted">
+            ' . $item["count"] . ' × $' . $item["usedprice"] . ' = $' . $item["total"] . '
+        </span>
+
+    </li>
+</ul>';
 
 			}
 
